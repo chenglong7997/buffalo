@@ -1,0 +1,28 @@
+1. how to compile the virtualmem?
+
+In the source code directory, you can simply type make to compile the virtualmem
+
+2.which options do you have?
+
+virtualmem [-h] [-f available-frames] [-r replacement-policy] [-i input_file]
+
+−h : Print a usage summary with all options and exit.
+−f available-frames : Set the number of available frames. By default it should be 5.
+−r replacement-policy : Set the page replacement policy. It can be either FIFO (First-in-firstout),
+SC (second chance/clock), or LFU (Least-frequently-used). The default will be FIFO.
+−i input file : Read the page reference sequence from a specified file. If not given,
+the sequence should be read from STDIN (ended with ENTER).
+
+
+3.how to run the virtualmem?
+
+After compiled source code, you can type the application name to run the virtualmem.
+For example:
+if you want to input all arguments, you can type ./virtualmem -f 10 -r LFU -i myinputfile to run virtualmem.
+You can also use ./virtualmem to run it.In this situation,it will use default value.That means frame number is 5, policy is FIFO and the sequence should read from STDIN
+You can also give some arguments,not all.For example, you can type ./virtualmem -r SC to run.It will use SC policy and default frame number and STDIN.
+
+4.how to use STDIN
+when you did not use -r argument, virtualmem will read sequence from STDIN. When you type sequence using STDIN, make sure that the first number is the total number of page request.
+For example, After you typed ./virtualmem. You can type 10 1 2 3 4 5 1 2 3 4 5 to run.The first number 10 is the total number of page request.
+
