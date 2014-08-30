@@ -1,0 +1,25 @@
+1.how to compile simdisk?
+You can just type make in the source code directory to compile code
+
+2.how to run simdisk?
+After you compiled the source code, you can just type ./simdisk to run
+
+3.how to use options?
+
+OPTIONS:
+−h : Print a usage summary with all options and exit.
+−n number-of-cylinders : Set the total number cylinders on the disk. By default it should be 200.
+(Be careful that disk cylinder indexes would be between 0-199 in this
+case.)
+− d disk-shed-policy : Set the disk scheduling policy. It can be either FCFS (First-come-firstserved),
+SSTF (Shortest-seek-time-first), C-SCAN, or LOOK. The
+default will be FCFS. Assume at the t=t0, the disk head was moving
+from 0 towards other end of the disk (i.e. cylinder n).
+−i input file : Read the I/O request sequence from a specified file. If not given,the sequence should
+be read from STDIN (ended with ENTER).
+
+you can use ./simdisk -n 100 -d SSTF -i my_inputfile to run simdisk
+You can also just input some arguments like ./simdisk -n 100 -d SSTF, this way you should use stdin to input request sequence.
+Note:when you use stdin to input request sequence, make sure that the first number is the total number of requests.
+For example, when you just type ./simdisk, you should input the request sequence. It may like this 6 1 9 2 3 8 7.
+The first number 6 is the total number of request
