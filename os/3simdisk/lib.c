@@ -48,20 +48,20 @@ int checkoption(int argc, char *argv[])
 					if (strcmp(argv[i+1], "FCFS") == 0)
 						ipolicy = 1;
 					else if (strcmp(argv[i+1], "SSTF") == 0)
-					    {
+					{
 						ipolicy = 2;
 						strcpy(policy, "SSTF");
-					    }
+					}
 					else if (strcmp(argv[i+1], "C-SCAN") == 0)
-					    {
+					{
 						ipolicy = 3;
 						strcpy(policy, "C-SCAN");
-					    }
+					}
 					else if( strcmp(argv[i+1], "LOOK") == 0 )
-					    {
+					{
 						ipolicy = 4;
 						strcpy(policy, "LOOK");
-					    }
+					}
 					else
 						bad_argu();
 				}
@@ -124,10 +124,10 @@ void print_rslt(int ipolicy, int *result, int travel)
 	else if (ipolicy == 2)
 	    strcpy(policy, "SSTF");
 	else if (ipolicy == 3)
-	    {
+	{
 		strcpy(policy, "C-SCAN");
 		request_num += 2;
-	    }
+	}
 	else if(ipolicy == 4)
 	    strcpy(policy, "LOOK");
 	printf("%s processing order: ", policy);

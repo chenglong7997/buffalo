@@ -21,15 +21,15 @@ void policy_handler(int ncylinder, int ipolicy, FILE *ifile, int **result, int *
 	int first = list[0];
 
 	//sort the request according to there distance to the head of disk
-	if(ipolicy == 2 || ipolicy == 3 || ipolicy == 4)
+	if (ipolicy == 2 || ipolicy == 3 || ipolicy == 4)
 		 sorted = sort(ncylinder, list);
-	if(ipolicy == 1)
+	if (ipolicy == 1)
 		*travel = fcfs(ncylinder, list, *result);
-	else if(ipolicy == 2)
+	else if (ipolicy == 2)
 		*travel = sstf(first, sorted, *result);
-	else if(ipolicy == 3)
+	else if (ipolicy == 3)
 		*travel = cscan(ncylinder, first, sorted, *result);
-	else if(ipolicy == 4)
+	else if (ipolicy == 4)
 		*travel = look(ncylinder, first, sorted, *result);
 
 }
@@ -85,7 +85,8 @@ int min(int *list)
 */
 void init_result(int **result)
 {
-	*result = (int *)malloc((request_num+2)*sizeof(int));	//since in cscan, we should store the 0 and ncylinder-1, so add 2
+	//since in cscan, we should store the 0 and ncylinder-1, so add 2
+	*result = (int *)malloc((request_num+2)*sizeof(int));	
 	assert(*result);
 	int i = 0;
 	for(; i<request_num; i++)
@@ -171,7 +172,7 @@ void init_sequence(int ncylinder, FILE *ifile, int **list)
 			else if (isspace(c) && fflage == FALSE)
 			{
 				fflage = TRUE;
-				if (tmp < 0 || tmp >= ncylinder)		//Illegal I/O request
+				if (tmp < 0 || tmp >= ncylinder)      //Illegal I/O request
 				{	
 					if (illegal == 0)
 					{
@@ -181,7 +182,7 @@ void init_sequence(int ncylinder, FILE *ifile, int **list)
 	 			        printf("%d ", tmp);
 					tmp = 0;
 				}
-				else					//legal request
+				else				      //legal request
 				{
 					(*list)[i] = tmp;
 					tmp = 0;
@@ -311,7 +312,8 @@ int cscan(int ncylinder, int first, item *sorted, int *result)
 	for (; counter < request_num + 2; counter++)
 	{
 		index++;
-		if (index == request_num)	//the last element in array, need return to the head of the array
+		//the last element in array, need return to the head of the array
+		if (index == request_num)	
 		{
 			//store the tail and head of disk into result array
 			result[counter++] = ncylinder-1;			
@@ -387,9 +389,11 @@ int sstf(int first, item *sorted, int *result)
 		if (left != -1 && right != request_num)
 		{
 			//both side
-			if (abs(sorted[index].request-sorted[left].request) > abs(sorted[index].request-sorted[right].request))
+			if (abs(sorted[index].request-sorted[left].request) > 
+			    abs(sorted[index].request-sorted[right].request))
 				index = right;
-			else if (abs(sorted[index].request-sorted[left].request) < abs(sorted[index].request-sorted[right].request))
+			else if (abs(sorted[index].request-sorted[left].request) < 
+				 abs(sorted[index].request-sorted[right].request))
 				index = left;
 			else
 			{
