@@ -18,7 +18,9 @@ unsigned long past = 0;
 **@percentage the penalty percentage
 **@return currently has no use
 */
-void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, unsigned long int *page_rplc, unsigned long int *page_ptml, float *percentage)
+void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, 
+		    unsigned long int *page_rplc, unsigned long int *page_ptml, 
+		    float *percentage)
 {
 	//init page and frame
 	init_frame(nframe);
@@ -65,7 +67,8 @@ unsigned long fifo(unsigned long int nframe)
 	//handle all the page
 	for(; ipage < page_num; ++ipage)
 	{
-		//if page[ipage] not exist.Insert it into frame if memory has space, otherwise replace a page in frame
+		/*if page[ipage] not exist.Insert it into frame if memory has space, 
+		otherwise replace a page in frame*/
 		//if the page exist. is_exist function will handle it
 		if (!is_exist(nframe, ipage))
 		{
@@ -108,11 +111,13 @@ unsigned long lfu(unsigned long int nframe)
 	//handle all the page
 	for (; ipage < page_num; ++ipage)
 	{
-		//if page[ipage] not exist.Insert it in frame if memory has space, otherwise replace a page in frame
+		/*if page[ipage] not exist.Insert it in frame if memory has space, 
+		otherwise replace a page in frame*/
 		//if the page exist.iso_exist function will handle it
 		if (!is_exist(nframe, ipage))
 		{
-			//frame is not full, add page to list directly,add this page to past_page list,set counter to 1 and add the current time 
+			/*frame is not full, add page to list directly,add this 
+			page to past_page list,set counter to 1 and add the current time */
 			if (index != nframe)
 			{
 				list[index].iframe = ptpage[ipage].number;
@@ -128,19 +133,20 @@ unsigned long lfu(unsigned long int nframe)
 				iget = min_counter(nframe);
 				//we should add this page to list[iget]
 				//calculate this page's counter
-				if (1 == new_page(ptpage[ipage].number))	//ptpage[ipage].number is a newpage
+				if (1 == new_page(ptpage[ipage].number))
 				{
 					ptpage[ipage].counter = 1;
-					past_page[past++] = ptpage[ipage].number;	//add this new page to past_page list
+					past_page[past++] = ptpage[ipage].number;
 				}
-				//ptpage[ipage] is an old page, then increase all the corresponding old page's counter by one, and copy it to page struct
+				/*ptpage[ipage] is an old page, then increase 
+				all the corresponding old page's counter by one, and copy it to page struct*/
 				else
 				{
 					unsigned long i = 0;
 					for(; i<ipage; i++)
 					{
 						if(ptpage[i].number == ptpage[ipage].number)
-							ptpage[ipage].counter = ++ptpage[i].counter;	//find this page last time's counter, increase it by one
+							ptpage[ipage].counter = ++ptpage[i].counter;
 					}
 				}
 				//add page to frame and set frame's counter and time
@@ -178,7 +184,8 @@ unsigned long min_counter(unsigned long nframe)
 			counter = list[i].counter;
 			iget = i;
 		}
-		//if there are some item have the same smallest counter, then we choose whose time is littlest. Then means choose the job which is oldest. Like FIFO
+		/*if there are some item have the same smallest counter, then we 
+		choose whose time is littlest. Then means choose the job which is oldest. Like FIFO*/
 		else if(first == 1 && list[i].counter == counter && list[i].time<list[iget].time)	
 			iget = i;
 	}
@@ -218,7 +225,8 @@ unsigned long sc(unsigned long int nframe)
 	unsigned long iget = 0;
 	for (; ipage<page_num; ++ipage)
 	{
-		//if page[ipage] not exist.Insert it in frame if memory has a room, otherwise replace a page in frame
+		/*if page[ipage] not exist.Insert it in frame if memory has a 
+		 * room, otherwise replace a page in frame*/
 		//if the page exist. is_exit function will handle it
 		if (!is_exist(nframe, ipage))
 		{
@@ -229,7 +237,9 @@ unsigned long sc(unsigned long int nframe)
 				list[index].rfrn_bit = FALSE;
 				++index;
 			}
-			else	//select which element's reference's bit equals FALSE , replace it and set new page's reference bit to FALSE
+			else	
+		       /*select which element's reference's bit equals FALSE , 
+			* replace it and set new page's reference bit to FALSE*/
 			{
 				while (1)
 				{
@@ -241,7 +251,9 @@ unsigned long sc(unsigned long int nframe)
 						iget = iget % nframe;
 						break;
 					}
-					else	//if reference bit equals to TRUE, set it equals to FALSE, and move pointer to next
+					else	
+				        /*if reference bit equals to TRUE, 
+				        set it equals to FALSE, and move pointer to next*/
 					{
 						list[iget].rfrn_bit = FALSE;
 						iget++;
@@ -282,7 +294,8 @@ unsigned long optimal(unsigned long int nframe)
 	unsigned long iget = 0;
 	for (; ipage < page_num; ++ipage)
 	{
-		//if page[ipage] not exist.Insert it in frame if memory has a room, otherwise replace a page in frame
+		/*if page[ipage] not exist.Insert it in frame if memory has a room, 
+		 * otherwise replace a page in frame*/
 		//if the page exist. is_exit function will handle it
 		if(!is_exist(nframe, ipage))
 		{
@@ -303,7 +316,7 @@ unsigned long optimal(unsigned long int nframe)
 					//find the page that will not be used fot longest time
 					for(; i < page_num; ++i)
 					{
-						if (list[iget].iframe == ptpage[i].number)		//page[i] will be used at i time, record i and iget
+						if (list[iget].iframe == ptpage[i].number)
 						{	
 							if(i > longest)
 							{
@@ -313,7 +326,8 @@ unsigned long optimal(unsigned long int nframe)
 							break;
 						}
 					}
-					if(i == page_num)	//since i equals page_num,so page[i] will not used in furture,record iget
+				        //since i equals page_num,so page[i] will not used in furture,record iget
+					if(i == page_num)	
 					{
 						iframeindex = iget;
 						break;
@@ -367,7 +381,7 @@ int init_page(FILE *ifile)
 				Perror("fail to realloc memory");
 		int num = 0;
 		//handle  the user's page info, store them in page
-		while( index != page_num && (num = scanf("%lu", &tmp)) && num != EOF && num != 0 && tmp != '\n' )
+		while (index != page_num && (num = scanf("%lu", &tmp)) && num != EOF && num != 0 && tmp != '\n')
 		{	
 			ptpage[index].number = tmp;
 			ptpage[index].counter = 0;
@@ -417,20 +431,20 @@ int init_page(FILE *ifile)
 		//read content in file to page array
 		//if the last char is a space
 		int fflage = FALSE;
-		while((c = fgetc(ifile)) != EOF)
+		while ((c = fgetc(ifile)) != EOF)
 		{
-			if(!isspace(c))
-				{
-					tmp = c-'0'+10*tmp;
-					fflage = FALSE;
-				}
-			else if(isspace(c) && fflage == FALSE)
-				{
-					fflage = TRUE;
-					ptpage[i].number = tmp;
-					tmp = 0;
-					++i;
-				}
+			if (!isspace(c))
+			{
+				tmp = c - '0' + 10 * tmp;
+				fflage = FALSE;
+			}
+			else if (isspace(c) && fflage == FALSE)
+			{
+				fflage = TRUE;
+				ptpage[i].number = tmp;
+				tmp = 0;
+				++i;
+			}
 		}
 	}
 }
@@ -448,12 +462,13 @@ int is_exist(unsigned long int nframe, unsigned long int ipage)
 	{
 		if(list[i].iframe == ptpage[ipage].number)	//the element has existed!
 		{
-			list[i].rfrn_bit = TRUE;	//the element exist, so set the reference bit to TRUE
+			list[i].rfrn_bit = TRUE;
 			unsigned long j = 0;
 			for(; j<ipage; j++)
 			{
+				//find this page last time's counter, increase it by one
 				if(ptpage[j].number == ptpage[ipage].number)
-					ptpage[ipage].counter = ++ptpage[j].counter;	//find this page last time's counter, increase it by one
+					ptpage[ipage].counter = ++ptpage[j].counter;	
 			}
 			list[i].counter = ptpage[ipage].counter;
 			return 1;

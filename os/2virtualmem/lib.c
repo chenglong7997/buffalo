@@ -46,20 +46,20 @@ int checkoption(int argc, char *argv[])
 					if (strcmp(argv[i+1], "FIFO") == 0)
 						ipolicy = 1;
 					else if (strcmp(argv[i+1], "LFU") == 0)
-						{
-							ipolicy = 2;
-							strcpy(policy, "LFU");
-						}
+					{
+						ipolicy = 2;
+						strcpy(policy, "LFU");
+					}
 					else if (strcmp(argv[i+1], "SC") == 0)
-						{
-							ipolicy = 3;
-							strcpy(policy, "SC");
-						}
+					{
+						ipolicy = 3;
+						strcpy(policy, "SC");
+					}
 					else if (strcmp(argv[i+1], "LRU") == 0)
-						{
-							ipolicy = 4;
-							strcpy(policy, "LRU");
-						}
+					{
+						ipolicy = 4;
+						strcpy(policy, "LRU");
+					}
 					else
 						bad_argu();
 				}
@@ -80,7 +80,7 @@ int checkoption(int argc, char *argv[])
 	else
 		bad_argu();
 
-	if(flagstdin == TRUE)
+	if (flagstdin == TRUE)
 		printf("frame number is %d, policy is %s, file is %s \n", nframe, policy, file);
 	else
 		printf("frame number is %d, policy is %s, page comes from STDIN\n", nframe, policy);
