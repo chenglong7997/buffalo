@@ -34,7 +34,9 @@ void print_rslt(int ipolicy, unsigned long int page_rplc, unsigned long int page
 **@percentage the penalty percentage
 **@return currently has no use
 */
-void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, unsigned long int *page_rplc, unsigned long int *page_ptml, float *percentage);
+void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, 
+		    unsigned long int *page_rplc, unsigned long int *page_ptml, 
+		    float *percentage);
 
 /*
 **provide information about all options

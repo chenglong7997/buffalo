@@ -40,7 +40,9 @@ void Perror(char *msg);
 **@percentage the penalty percentage
 **@return currently has no use
 */
-void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, unsigned long int *page_rplc, unsigned long int *page_ptml, float *percentage);
+void policy_handler(unsigned long int nframe, int ipolicy, FILE *ifile, 
+		    unsigned long int *page_rplc, unsigned long int *page_ptml, 
+		    float *percentage);
 
 /*
 **fifo using this function to implement FIFO policy
