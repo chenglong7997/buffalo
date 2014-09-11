@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 {
 	int tcp_fd = 0;
 	int udp_fd = 0;
+
 	//check options like tcp_port, udp_port and max connections
 	checkoption(argc, argv);
 	printf("\n");
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
 	while(1)
 	{
 		read_fds = master;
-		if (select(fdmax+1, &read_fds, NULL, NULL, NULL) < 0)
+		if (select(fdmax + 1, &read_fds, NULL, NULL, NULL) < 0)
 		{
 			/*if(errno==EINTR)
 				continue;

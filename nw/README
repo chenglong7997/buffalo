@@ -6,30 +6,31 @@ You can simply type make to compile citizen in source code directoty
 
 3.how to run this program?
 
-First, You should give three arguments to run.
+1) You should give three arguments to run.
 For example, you can type ./citizen 3 4444 5555, ./citizen 3 6666 7777, 
 ./citizen 3 8888 9999 to start three peers on there different hosts like peer1,peer2,peer3.
 
-Second, You can simply type info to print citizen's information.
+2) You can simply type info to print citizen's information.
 
-Third, You should connect these peers.
+3) You should connect these peers.
 For example, you can type connect peer2_ip 6666 on peer1 to connect to peer2.Then you can type
 connect peer3_ip 8888 on peer2 to connect to peer3.And type connect peer1_ip 4444 on peer3 to
 connect to peer1.
 
-Fourth,you can type show-conn to show outgoing tcp connections.
+4) you can type show-conn to show outgoing tcp connections.
 
-Fifth, You can type ready to input a ten digit init_token to each peer.In my project,
+5) You can type ready to input a ten digit init_token to each peer.In my project,
 i will send the private msg which includes init_token only after you have input all init_token
 for your peers.You should repeat this operation on all peers to send init_token to others.
 
-Sixth,You can type all-tokens to show all the tokens this peer has received
+6) You can type all-tokens to show all the tokens this peer has received
 
-Seventh,you can type self-token to show each peer's peer_token after it recevie all init_tokens.
+7) you can type self-token to show each peer's peer_token after it recevie all init_tokens.
 Otherwise you will have a "WAITING ON PEER_TOKEN" msg.
 
-Eighth,After sixth opeartion, you can see which peer is the leader.Then you can type salute to
+8) After sixth opeartion, you can see which peer is the leader.Then you can type salute to
 send a salute msg to the leader on other peers.
+
 
 4.Notices
 After you type ready command,when you type other command, it may show UNKNOWN COMMAND.But it doesnot
@@ -38,6 +39,4 @@ And it doesnot run.This is a small bug which i have not find.Sorry for this.
 
 When peer receive the broadcast message which it is created by himself.It will not show the content of this msg.
 Other peers who receive broadcast message from different peers will show the content.
-
-
 
